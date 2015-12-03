@@ -38,4 +38,44 @@ public class Traversal {
 			}
 		}
 	}
+	
+	
+	public void inOrderRecursive(TreeNode root){
+		
+		if( null == root){
+			return;
+		}
+		
+		inOrderRecursive(root.leftNode);
+		System.out.println(root.val);
+		inOrderRecursive(root.rightNode);
+		
+	}
+	
+	public void inOrderIterative(TreeNode root){
+		
+		if( null == root ){
+			return;
+		}
+		
+		Stack<TreeNode> stack = new Stack<>();
+		
+		stack.push(root);
+		TreeNode temp = root;
+		
+		while(!stack.isEmpty() || temp != null){
+			
+			if( temp != null){
+				stack.push(temp);
+				temp = temp.leftNode;
+			}else{
+				TreeNode right = stack.pop();
+				System.out.println(right.val);
+				temp = right.rightNode;
+			}
+			
+			
+			
+		}
+	}
 }

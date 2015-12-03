@@ -60,7 +60,6 @@ public class Traversal {
 		
 		Stack<TreeNode> stack = new Stack<>();
 		
-		stack.push(root);
 		TreeNode temp = root;
 		
 		while(!stack.isEmpty() || temp != null){
@@ -69,9 +68,9 @@ public class Traversal {
 				stack.push(temp);
 				temp = temp.leftNode;
 			}else{
-				TreeNode right = stack.pop();
-				System.out.println(right.val);
-				temp = right.rightNode;
+				TreeNode parent = stack.pop();
+				System.out.println(parent.val);
+				temp = parent.rightNode;
 			}
 			
 			

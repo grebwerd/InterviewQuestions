@@ -1,7 +1,5 @@
 package binaryTree;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 public class Traversal {
@@ -74,9 +72,6 @@ public class Traversal {
 				System.out.println(parent.val);
 				temp = parent.rightNode;
 			}
-			
-			
-			
 		}
 	}
 	
@@ -91,7 +86,7 @@ public class Traversal {
 		System.out.println(root.val);
 	}
 	
-	//This code came frome: 
+	//This code came from: 
 	//http://www.programcreek.com/2012/12/leetcode-solution-of-iterative-binary-tree-postorder-traversal-in-java/
 	public void postOrderIterative(TreeNode root){
 		
@@ -105,14 +100,24 @@ public class Traversal {
 		
 		TreeNode prev = null;
 		
+		
+		//prev is always the last node that curr was. 
+		//curr is always the top value of the stack
+		//prev and curr will be referencing the correct node at the start of the while loop
+		//curr will be referencing the correct node at the start of the iteration when curr = stack.peek();
+		//prev will be referencing the correct node for the next iteration when
+		//prev = curr at the bottom of the while loop.
+		
 		while(!stack.empty()){
+	    //This set curr to the to top of the stack
 		TreeNode curr = stack.peek();
 		
 		//go down the tree
-		//check if current node is leaf, if so, process it and pop stack,
-		//otherwise, keep going down 
+		//if prev is null, meaning you are starting at the root node
+		//or if prev is a parent node of the curr node
 		if( null == prev || prev.leftNode == curr || prev.rightNode == curr){
-			//prev == null is the situation for a root node
+			//remember at the end of each iteration prev will equal curr node 
+			//and curr will equal the top of the stack
 			if( curr.leftNode != null){
 				stack.push(curr.leftNode);
 			}else if(curr.rightNode != null){
@@ -122,12 +127,10 @@ public class Traversal {
 				System.out.println(curr.val + " ");
 			}
 
-			//go up the tree from the left node
-			//need to check if there is a right child
-			//if yes, push it to the stack
-			//otherwise, process the parent and pop the stack
 			
 			
+		//if curr.leftNode == prev, this means you have gone down the left sub tree and now 
+		//are going to go down the right sub tree.
 		}else if( curr.leftNode == prev){
 			if(curr.rightNode != null){
 				stack.push(curr.rightNode);
@@ -135,9 +138,8 @@ public class Traversal {
 				stack.pop();
 				System.out.println(curr.val + " ");
 			}
-			//go up the tree from the right node
-			//afte coming back from the right node, process the parent node and pop
-			//the stack
+			//if curr.rightNode == prev, then you have gone down the entire right subtree
+			//and now curr is the parent node of the subtree
 		}else if( curr.rightNode == prev){
 			stack.pop();
 			System.out.println(curr.val + " ");

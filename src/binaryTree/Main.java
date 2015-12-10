@@ -36,7 +36,10 @@ public class Main {
 	    traversal.postOrderIterative(root);*/
 		
 		//traversal.preOrderIterativeTest(root);
-		traversal.inOrderIterativeTest(root);
-	    
+		//traversal.inOrderIterativeTest(root);
+		
+	    traversal.inOrderIterativeTestII(root);
+		
+		
 	}
 }

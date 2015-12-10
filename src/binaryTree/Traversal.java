@@ -219,8 +219,8 @@ public class Traversal {
 		// meaning we have found the right most leaf of the tree.
 		while (!stack.isEmpty() || null != temp) {
 
-			//This will be printed out, when going back up to the subtree root
-			//from the subtree root's left subtree
+			// This will be printed out, when going back up to the subtree root
+			// from the subtree root's left subtree
 			if (null == temp) {
 				temp = stack.pop();
 				System.out.println(temp.val + "x");
@@ -237,12 +237,12 @@ public class Traversal {
 
 					// Traverse Right Sub tree
 				} else if (temp.rightNode != null) {
-					//This will be printed out if the subtree root has only
-					//A right subtree
+					// This will be printed out if the subtree root has only
+					// A right subtree
 					System.out.println(temp.val);
 					temp = temp.rightNode;
 				} else {
-					//This will only print out leafs
+					// This will only print out leafs
 					System.out.println(temp.val + "y");
 					temp = temp.rightNode;
 				}
@@ -252,4 +252,32 @@ public class Traversal {
 
 	}
 
+	
+	public void inOrderIterativeTestII(TreeNode root){
+
+		//If the root of the tree is null, then return from the function
+		if(null == root){
+			return;
+		}
+		
+		//Use a stack to keep of the root nodes of each subtree that you have visited so far
+		Stack<TreeNode> stack = new Stack<>();
+		
+		
+		//Use a variable to iterate through the tree, set it to the root of the tree
+		TreeNode temp = root;
+		
+		while(!stack.isEmpty() || null != temp){
+			if( null != temp){
+				stack.push(temp);
+				temp = temp.leftNode;
+			}else{
+				TreeNode parentNode = stack.pop();
+				System.out.println(parentNode.val);
+				temp = parentNode.rightNode;
+			}
+		}
+	}
+
 }
+

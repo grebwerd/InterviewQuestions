@@ -28,23 +28,15 @@ public class Main {
 		
 		Traversal traversal = new Traversal();
 		
-		/*System.out.println(" Recursive ");
-		traversal.inOrderRecursive(root);
-		
-		System.out.println("\n\n");
-		
-		System.out.println(" Iterative " );
-	    traversal.inOrderIterative(root);
 	    
-	    System.out.println("\n\n");*/
-	    
-	    System.out.println("Recursive");
+	  /*  System.out.println("Recursive");
 	    traversal.postOrderRecursive(root);
 	    
 	    System.out.println(" Iterative ");
-	    traversal.postOrderIterative(root);
+	    traversal.postOrderIterative(root);*/
+		
+		//traversal.preOrderIterativeTest(root);
+		traversal.inOrderIterativeTest(root);
+	    
 	}
-	
-	
-
 }

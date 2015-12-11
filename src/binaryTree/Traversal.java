@@ -278,6 +278,67 @@ public class Traversal {
 			}
 		}
 	}
+	
+	
+	public void postOrderIterativeTest(TreeNode root){
+		
+		//If the root of the tree is null, the return from the function
+		if(null == root){
+			return;
+		}
+		
+		//Use a stack to keep trace nodes that has been visited
+		Stack<TreeNode> stack = new Stack<>();
+		stack.push(root);
+		
+		TreeNode prev = null;
+		
+		
+		while(!stack.isEmpty()){
+			TreeNode curr = stack.peek();
+			
+			if( prev == null || prev.leftNode == curr || prev.rightNode == curr){
+				if(null != curr.leftNode){
+					stack.push(curr.leftNode);
+				}else if( null != curr.rightNode){
+					stack.push(curr.rightNode);
+				}else{
+					//Hey you reached a leaf
+					stack.pop();
+					System.out.println(curr.val);
+					
+				}
+			}else if( curr.leftNode == prev){
+				if( null != curr.rightNode){
+					stack.push(curr.rightNode);
+				}else{
+					//There is no right subtree for the current node to traverse
+					//the curr node is equal to the top of the stack, the top of the
+					//stack node is the root  node of the subtree that is being traversed
+					stack.pop();
+					System.out.println(curr.val);
+				}
+			}else{
+				stack.pop();
+				System.out.println(curr.val);
+			}
+			
+			prev = curr;
+		}
+		
+		
+		
+	}
+	
+	
+	public void printAllPaths(TreeNode root){
+		if(null == root){
+			return;
+		}
+		System.out.println(root.val);
+		printAllPaths(root.leftNode);
+		printAllPaths(root.rightNode);
+	}
 
 }
 

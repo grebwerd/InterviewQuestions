@@ -1,8 +1,12 @@
 package binaryTree;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class Traversal {
+
+	List<List<Integer>> retval = new ArrayList<List<Integer>>();
 
 	public void preOrderRecursive(TreeNode root) {
 
@@ -252,93 +256,101 @@ public class Traversal {
 
 	}
 
-	
-	public void inOrderIterativeTestII(TreeNode root){
+	public void inOrderIterativeTestII(TreeNode root) {
 
-		//If the root of the tree is null, then return from the function
-		if(null == root){
+		// If the root of the tree is null, then return from the function
+		if (null == root) {
 			return;
 		}
-		
-		//Use a stack to keep of the root nodes of each subtree that you have visited so far
+
+		// Use a stack to keep of the root nodes of each subtree that you have
+		// visited so far
 		Stack<TreeNode> stack = new Stack<>();
-		
-		
-		//Use a variable to iterate through the tree, set it to the root of the tree
+
+		// Use a variable to iterate through the tree, set it to the root of the
+		// tree
 		TreeNode temp = root;
-		
-		while(!stack.isEmpty() || null != temp){
-			if( null != temp){
+
+		while (!stack.isEmpty() || null != temp) {
+			if (null != temp) {
 				stack.push(temp);
 				temp = temp.leftNode;
-			}else{
+			} else {
 				TreeNode parentNode = stack.pop();
 				System.out.println(parentNode.val);
 				temp = parentNode.rightNode;
 			}
 		}
 	}
-	
-	
-	public void postOrderIterativeTest(TreeNode root){
-		
-		//If the root of the tree is null, the return from the function
-		if(null == root){
+
+	public void postOrderIterativeTest(TreeNode root) {
+
+		// If the root of the tree is null, the return from the function
+		if (null == root) {
 			return;
 		}
-		
-		//Use a stack to keep trace nodes that has been visited
+
+		// Use a stack to keep trace nodes that has been visited
 		Stack<TreeNode> stack = new Stack<>();
 		stack.push(root);
-		
+
 		TreeNode prev = null;
-		
-		
-		while(!stack.isEmpty()){
+
+		while (!stack.isEmpty()) {
 			TreeNode curr = stack.peek();
-			
-			if( prev == null || prev.leftNode == curr || prev.rightNode == curr){
-				if(null != curr.leftNode){
+
+			if (prev == null || prev.leftNode == curr || prev.rightNode == curr) {
+				if (null != curr.leftNode) {
 					stack.push(curr.leftNode);
-				}else if( null != curr.rightNode){
+				} else if (null != curr.rightNode) {
 					stack.push(curr.rightNode);
-				}else{
-					//Hey you reached a leaf
+				} else {
+					// Hey you reached a leaf
 					stack.pop();
 					System.out.println(curr.val);
-					
+
 				}
-			}else if( curr.leftNode == prev){
-				if( null != curr.rightNode){
+			} else if (curr.leftNode == prev) {
+				if (null != curr.rightNode) {
 					stack.push(curr.rightNode);
-				}else{
-					//There is no right subtree for the current node to traverse
-					//the curr node is equal to the top of the stack, the top of the
-					//stack node is the root  node of the subtree that is being traversed
+				} else {
+					// There is no right subtree for the current node to
+					// traverse
+					// the curr node is equal to the top of the stack, the top
+					// of the
+					// stack node is the root node of the subtree that is being
+					// traversed
 					stack.pop();
 					System.out.println(curr.val);
 				}
-			}else{
+			} else {
 				stack.pop();
 				System.out.println(curr.val);
 			}
-			
+
 			prev = curr;
 		}
-		
-		
-		
+
 	}
-	
-	
-	public void printAllPaths(TreeNode root){
-		if(null == root){
+
+	public void printAllPaths(TreeNode root, List<Integer> path, int length) {
+		if (null == root) {
 			return;
 		}
-		System.out.println(root.val);
-		printAllPaths(root.leftNode);
-		printAllPaths(root.rightNode);
+
+		path.add(length, root.val);
+
+		length++;
+		if (null == root.leftNode && null == root.rightNode) {
+			System.out.println("\n    ");
+			for (int i : path) {
+				System.out.print(i + " ");
+			}
+		}
+
+		printAllPaths(root.leftNode, path, length);
+		printAllPaths(root.rightNode, path, length);
+
+		path.remove(--length);
 	}
-
 }
-

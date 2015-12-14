@@ -1,5 +1,8 @@
 package binaryTree;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -40,8 +43,8 @@ public class Main {
 		
 	    //traversal.inOrderIterativeTestII(root);
 		//traversal.postOrderIterativeTest(root);
-		
-		traversal.printAllPaths(root);
+		List<Integer> path = new ArrayList<>();
+		traversal.printAllPaths(root, path, 0);
 		
 		
 	}

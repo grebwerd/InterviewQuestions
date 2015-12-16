@@ -1,7 +1,9 @@
 package binaryTree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Traversal {
@@ -353,4 +355,172 @@ public class Traversal {
 
 		path.remove(--length);
 	}
+
+	public void printAllLeafs(TreeNode root) {
+		if (null == root) {
+			return;
+		}
+
+		if (null == root.leftNode && null == root.rightNode) {
+			System.out.print(root.val + " ");
+		}
+
+		printAllLeafs(root.leftNode);
+		printAllLeafs(root.rightNode);
+	}
+
+	public void sumEachPath(TreeNode root, List<Integer> path, int length) {
+		if (null == root) {
+			return;
+		}
+
+		path.add(length, root.val);
+		length++;
+
+		if (null == root.leftNode && null == root.rightNode) {
+			int sum = 0;
+			for (int i : path) {
+				sum += i;
+				System.out.print(i + " ");
+			}
+			System.out.println("The sum of the path is " + sum);
+		}
+
+		sumEachPath(root.leftNode, path, length);
+		sumEachPath(root.rightNode, path, length);
+
+		path.remove(--length);
+	}
+
+	public TreeNode invertTree(TreeNode root) {
+
+		if (null == root) {
+			return null;
+		}
+
+		Stack<TreeNode> stack = new Stack<>();
+		stack.add(root);
+
+		while (!stack.isEmpty()) {
+
+			TreeNode parentNode = stack.pop();
+			TreeNode tempLeft = parentNode.leftNode;
+
+			parentNode.leftNode = parentNode.rightNode;
+			parentNode.rightNode = tempLeft;
+
+			if (null != parentNode.rightNode) {
+				stack.push(parentNode.rightNode);
+			}
+
+			if (null != parentNode.leftNode) {
+				stack.push(parentNode.leftNode);
+			}
+		}
+
+		return root;
+
+	}
+
+	public void levelTraversal(TreeNode root) {
+
+		if (null == root) {
+			return;
+		}
+
+		Queue<TreeNode> queue = new LinkedList<>();
+
+		queue.add(root);
+
+		while (!queue.isEmpty()) {
+			TreeNode parentNode = queue.remove();
+			System.out.print(parentNode.val + " ");
+
+			if (null != parentNode.leftNode) {
+				queue.add(parentNode.leftNode);
+			}
+
+			if (null != parentNode.rightNode) {
+				queue.add(parentNode.rightNode);
+			}
+		}
+
+	}
+
+	public void decomposeAndComposeTree(TreeNode root){
+		deserialize(serialize(root));
+	}
+	
+	   // Encodes a tree to a single string.
+	  public String serialize(TreeNode root) {
+			
+			ArrayList<String> lists = new ArrayList<>();
+			serializeHelper(root, lists);
+			String retval = lists.toString();
+			retval = retval.replace("[", "");
+			retval = retval.replace("]","");
+			retval = retval.replace(",", "");
+			retval = retval.replace(" ","");
+			System.out.println(retval);
+			
+			return retval.toString();
+		}
+
+		private void serializeHelper(TreeNode root, ArrayList<String>path){
+			if(null == root){
+				return;
+			}
+			path.add(Integer.toString(root.val)+ "->");
+			serializeHelper(root.leftNode, path);
+			serializeHelper(root.rightNode, path);
+		}
+
+	    // Decodes your encoded data to tree.
+	   public TreeNode deserialize(String data){
+			/*if( data.equals("")){
+				return null;
+			}*/
+			String[] tree = data.split("->");
+			for(String s: tree){
+				System.out.print(s + " ");
+			}
+			TreeNode root = new TreeNode(Integer.parseInt(tree[0]));
+			int i = 1;
+			while( i < tree.length){
+				TreeNode temp = root;
+				insertTreeNode(temp, Integer.parseInt(tree[i]));
+				i++;
+			}
+			
+			return root;
+		}
+		
+		public void insertTreeNode(TreeNode root, int val){
+			if(root == null){
+				return;
+			}
+			
+			if(root.val > val && root.leftNode == null){
+				root.leftNode = new TreeNode(val);
+			/*	System.out.println("The node " + root.val + " is inserting a node to its "
+						+ " left child with the value of " + val);*/
+				return;
+			}
+			
+			if( root.val > val ){
+				insertTreeNode(root.leftNode, val);
+			}
+			
+			if( root.val < val && root.rightNode == null){
+				root.rightNode = new TreeNode(val);
+				/*System.out.println("The node " + root.val + " is inserting a node to its "
+						+ " right child with the value of " + val);*/
+				return;
+			}
+			
+			if( root.val < val){
+				insertTreeNode(root.rightNode, val);
+			}
+		}
+	
 }

@@ -43,9 +43,19 @@ public class Main {
 		
 	    //traversal.inOrderIterativeTestII(root);
 		//traversal.postOrderIterativeTest(root);
-		List<Integer> path = new ArrayList<>();
-		traversal.printAllPaths(root, path, 0);
+		//List<Integer> path = new ArrayList<>();
+		//traversal.printAllPaths(root, path, 0);
 		
+		//traversal.printAllLeafs(root);
 		
+		//List<Integer> path = new ArrayList<>();
+		//traversal.sumEachPath(root, path, 0);
+		
+		//traversal.printAllPaths(traversal.invertTree(root), new ArrayList<Integer>(), 0);
+		
+		//traversal.levelTraversal(root);
+		
+		//traversal.serialize(root);
+		traversal.decomposeAndComposeTree(root);
 	}
 }

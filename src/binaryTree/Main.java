@@ -56,6 +56,10 @@ public class Main {
 		//traversal.levelTraversal(root);
 		
 		//traversal.serialize(root);
-		traversal.decomposeAndComposeTree(root);
+		//traversal.decomposeAndComposeTree(root);
+		
+		//traversal.maxDepthHelper(root, 0);
+		
+		traversal.isTreeBalanced(root);
 	}
 }

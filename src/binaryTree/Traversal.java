@@ -9,7 +9,10 @@ import java.util.Stack;
 public class Traversal {
 
 	List<List<Integer>> retval = new ArrayList<List<Integer>>();
-
+	int maxDepth = 0;
+    boolean isBalanced = true;
+	
+	
 	public void preOrderRecursive(TreeNode root) {
 
 		// Base case
@@ -522,5 +525,77 @@ public class Traversal {
 				insertTreeNode(root.rightNode, val);
 			}
 		}
+		
+		
+		public int maxDepthHelper(TreeNode root, int depth){
+			
+			if(null == root){
+				return depth;
+			}
+			
+			
+			
+			depth += 1;
+			System.out.println(root.val + " has the depth " + depth);
+			
+			int leftTreeDepth = maxDepthHelper(root.leftNode, depth);
+			int rightTreeDepth = maxDepthHelper(root.rightNode, depth);
+			
+			System.out.println("leftTreeDepth is " + leftTreeDepth + " for root val " + root.val);
+			System.out.println("rightTreeDepth is " + rightTreeDepth + " for root val " + root.val);
+			int treeDepth = Math.max( leftTreeDepth, rightTreeDepth);
+			
+			maxDepth = Math.max(treeDepth, maxDepth);
+			
+			System.out.println("The new maxDepth is " + maxDepth + " for root val " + root.val);
+			
+			
+			
+			return maxDepth;
+			
+			
+		}
+		
+		
+		public boolean isTreeBalanced(TreeNode root){
+			
+			treeDepth(root,0);
+			if(isBalanced){
+				System.out.println("The tree is balanced");
+			}
+			else{
+				System.out.println("The tree is not balanced");
+			}
+			return isBalanced;
+			
+			
+		}
+		
+		public int treeDepth(TreeNode root,int depth){
+			if( root == null){
+				return depth;
+			}
+			
+			depth++;
+			
+			int leftDepth = treeDepth(root.leftNode, depth);
+			int rightDepth = treeDepth(root.rightNode, depth);
+			
+			if( Math.abs(leftDepth-rightDepth) > 1){
+				isBalanced = false;
+				
+				System.out.println("The parent node with the value of " + root.val + " of the subtree is NOT balanced");
+				System.out.println("The left Subtree depth is " + leftDepth);
+				System.out.println("The right subtree depth is " + rightDepth);
+			}else{
+				System.out.println("The parent node with the value of " + root.val + " of the subtree is balanced");
+				System.out.println("The left Subtree depth is " + leftDepth);
+				System.out.println("The right subtree depth is " + rightDepth);
+			}
+			
+			return Math.max(leftDepth, rightDepth);
+			
+		}
+		
 	
 }

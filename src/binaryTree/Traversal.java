@@ -10,9 +10,8 @@ public class Traversal {
 
 	List<List<Integer>> retval = new ArrayList<List<Integer>>();
 	int maxDepth = 0;
-    boolean isBalanced = true;
-	
-	
+	boolean isBalanced = true;
+
 	public void preOrderRecursive(TreeNode root) {
 
 		// Base case
@@ -450,152 +449,248 @@ public class Traversal {
 
 	}
 
-	public void decomposeAndComposeTree(TreeNode root){
+	public void decomposeAndComposeTree(TreeNode root) {
 		deserialize(serialize(root));
 	}
-	
-	   // Encodes a tree to a single string.
-	  public String serialize(TreeNode root) {
-			
-			ArrayList<String> lists = new ArrayList<>();
-			serializeHelper(root, lists);
-			String retval = lists.toString();
-			retval = retval.replace("[", "");
-			retval = retval.replace("]","");
-			retval = retval.replace(",", "");
-			retval = retval.replace(" ","");
-			System.out.println(retval);
-			
-			return retval.toString();
+
+	// Encodes a tree to a single string.
+	public String serialize(TreeNode root) {
+
+		ArrayList<String> lists = new ArrayList<>();
+		serializeHelper(root, lists);
+		String retval = lists.toString();
+		retval = retval.replace("[", "");
+		retval = retval.replace("]", "");
+		retval = retval.replace(",", "");
+		retval = retval.replace(" ", "");
+		System.out.println(retval);
+
+		return retval.toString();
+	}
+
+	private void serializeHelper(TreeNode root, ArrayList<String> path) {
+		if (null == root) {
+			return;
+		}
+		path.add(Integer.toString(root.val) + "->");
+		serializeHelper(root.leftNode, path);
+		serializeHelper(root.rightNode, path);
+	}
+
+	// Decodes your encoded data to tree.
+	public TreeNode deserialize(String data) {
+		/*
+		 * if( data.equals("")){ return null; }
+		 */
+		String[] tree = data.split("->");
+		for (String s : tree) {
+			System.out.print(s + " ");
+		}
+		TreeNode root = new TreeNode(Integer.parseInt(tree[0]));
+		int i = 1;
+		while (i < tree.length) {
+			TreeNode temp = root;
+			insertTreeNode(temp, Integer.parseInt(tree[i]));
+			i++;
 		}
 
-		private void serializeHelper(TreeNode root, ArrayList<String>path){
-			if(null == root){
-				return;
-			}
-			path.add(Integer.toString(root.val)+ "->");
-			serializeHelper(root.leftNode, path);
-			serializeHelper(root.rightNode, path);
+		return root;
+	}
+
+	public void insertTreeNode(TreeNode root, int val) {
+		if (root == null) {
+			return;
 		}
 
-	    // Decodes your encoded data to tree.
-	   public TreeNode deserialize(String data){
-			/*if( data.equals("")){
-				return null;
-			}*/
-			String[] tree = data.split("->");
-			for(String s: tree){
-				System.out.print(s + " ");
-			}
-			TreeNode root = new TreeNode(Integer.parseInt(tree[0]));
-			int i = 1;
-			while( i < tree.length){
-				TreeNode temp = root;
-				insertTreeNode(temp, Integer.parseInt(tree[i]));
-				i++;
-			}
-			
-			return root;
+		if (root.val > val && root.leftNode == null) {
+			root.leftNode = new TreeNode(val);
+			/*
+			 * System.out.println("The node " + root.val +
+			 * " is inserting a node to its " + " left child with the value of "
+			 * + val);
+			 */
+			return;
 		}
-		
-		public void insertTreeNode(TreeNode root, int val){
-			if(root == null){
-				return;
-			}
-			
-			if(root.val > val && root.leftNode == null){
-				root.leftNode = new TreeNode(val);
-			/*	System.out.println("The node " + root.val + " is inserting a node to its "
-						+ " left child with the value of " + val);*/
-				return;
-			}
-			
-			if( root.val > val ){
-				insertTreeNode(root.leftNode, val);
-			}
-			
-			if( root.val < val && root.rightNode == null){
-				root.rightNode = new TreeNode(val);
-				/*System.out.println("The node " + root.val + " is inserting a node to its "
-						+ " right child with the value of " + val);*/
-				return;
-			}
-			
-			if( root.val < val){
-				insertTreeNode(root.rightNode, val);
-			}
+
+		if (root.val > val) {
+			insertTreeNode(root.leftNode, val);
 		}
-		
-		
-		public int maxDepthHelper(TreeNode root, int depth){
-			
-			if(null == root){
-				return depth;
-			}
-			
-			
-			
-			depth += 1;
-			System.out.println(root.val + " has the depth " + depth);
-			
-			int leftTreeDepth = maxDepthHelper(root.leftNode, depth);
-			int rightTreeDepth = maxDepthHelper(root.rightNode, depth);
-			
-			System.out.println("leftTreeDepth is " + leftTreeDepth + " for root val " + root.val);
-			System.out.println("rightTreeDepth is " + rightTreeDepth + " for root val " + root.val);
-			int treeDepth = Math.max( leftTreeDepth, rightTreeDepth);
-			
-			maxDepth = Math.max(treeDepth, maxDepth);
-			
-			System.out.println("The new maxDepth is " + maxDepth + " for root val " + root.val);
-			
-			
-			
-			return maxDepth;
-			
-			
+
+		if (root.val < val && root.rightNode == null) {
+			root.rightNode = new TreeNode(val);
+			/*
+			 * System.out.println("The node " + root.val +
+			 * " is inserting a node to its " +
+			 * " right child with the value of " + val);
+			 */
+			return;
 		}
-		
-		
-		public boolean isTreeBalanced(TreeNode root){
-			
-			treeDepth(root,0);
-			if(isBalanced){
-				System.out.println("The tree is balanced");
-			}
-			else{
-				System.out.println("The tree is not balanced");
-			}
-			return isBalanced;
-			
-			
+
+		if (root.val < val) {
+			insertTreeNode(root.rightNode, val);
 		}
-		
-		public int treeDepth(TreeNode root,int depth){
-			if( root == null){
-				return depth;
+	}
+
+	public int maxDepthHelper(TreeNode root, int depth) {
+
+		if (null == root) {
+			return depth;
+		}
+
+		depth += 1;
+		System.out.println(root.val + " has the depth " + depth);
+
+		int leftTreeDepth = maxDepthHelper(root.leftNode, depth);
+		int rightTreeDepth = maxDepthHelper(root.rightNode, depth);
+
+		System.out.println("leftTreeDepth is " + leftTreeDepth + " for root val " + root.val);
+		System.out.println("rightTreeDepth is " + rightTreeDepth + " for root val " + root.val);
+		int treeDepth = Math.max(leftTreeDepth, rightTreeDepth);
+
+		maxDepth = Math.max(treeDepth, maxDepth);
+
+		System.out.println("The new maxDepth is " + maxDepth + " for root val " + root.val);
+
+		return maxDepth;
+
+	}
+
+	public boolean isTreeBalanced(TreeNode root) {
+
+		treeDepth(root, 0);
+		if (isBalanced) {
+			System.out.println("The tree is balanced");
+		} else {
+			System.out.println("The tree is not balanced");
+		}
+		return isBalanced;
+
+	}
+
+	public int treeDepth(TreeNode root, int depth) {
+		if (root == null) {
+			return depth;
+		}
+
+		depth++;
+
+		int leftDepth = treeDepth(root.leftNode, depth);
+		int rightDepth = treeDepth(root.rightNode, depth);
+
+		if (Math.abs(leftDepth - rightDepth) > 1) {
+			isBalanced = false;
+
+			System.out.println("The parent node with the value of " + root.val + " of the subtree is NOT balanced");
+			System.out.println("The left Subtree depth is " + leftDepth);
+			System.out.println("The right subtree depth is " + rightDepth);
+		} else {
+			System.out.println("The parent node with the value of " + root.val + " of the subtree is balanced");
+			System.out.println("The left Subtree depth is " + leftDepth);
+			System.out.println("The right subtree depth is " + rightDepth);
+		}
+
+		return Math.max(leftDepth, rightDepth);
+
+	}
+
+	public void treeRightSide(TreeNode root) {
+
+		if (null == root) {
+			return;
+		}
+
+		Queue<TreeNode> queue = new LinkedList<>();
+
+		queue.add(root);
+
+		while (!queue.isEmpty()) {
+
+			int size = queue.size();
+			System.out.println("The size of the queue is " + size);
+			// This loop goes
+			// through 1 level of a binary tree at a time
+			for (int i = 0; i < size; i++) {
+
+				TreeNode temp = queue.remove();
+				if (i == 0) {
+					System.out.println("The right value is " + temp.val);
+				}
+
+				if (temp.rightNode != null) {
+					queue.add(temp.rightNode);
+				}
+
+				if (temp.leftNode != null) {
+					queue.add(temp.leftNode);
+				}
+
 			}
+
+		}
+
+	}
+
+	public List<List<Integer>> zigZag(TreeNode root) {
+
+		if (null == root) {
+			return null;
+		}
+
+		Queue<TreeNode> queue = new LinkedList<>();
+		queue.add(root);
+
+		List<List<Integer>> list = new ArrayList<List<Integer>>();
+
+		boolean leftToRight = false;
+
+		while (!queue.isEmpty()) {
+
+			int size = queue.size();
+
+			List<Integer> level = new ArrayList<>();
+
+			System.out.println("The value of lefToRight is " + leftToRight);
 			
-			depth++;
-			
-			int leftDepth = treeDepth(root.leftNode, depth);
-			int rightDepth = treeDepth(root.rightNode, depth);
-			
-			if( Math.abs(leftDepth-rightDepth) > 1){
-				isBalanced = false;
+
+			for (int i = 0; i < size; i++) {
+				TreeNode parent = queue.remove();
+
+				System.out.println("The value of the parent is " + parent.val);
+
+				if(leftToRight){
+					level.add(parent.val);
+				}else{
+					level.add(0, parent.val);
+				}
 				
-				System.out.println("The parent node with the value of " + root.val + " of the subtree is NOT balanced");
-				System.out.println("The left Subtree depth is " + leftDepth);
-				System.out.println("The right subtree depth is " + rightDepth);
-			}else{
-				System.out.println("The parent node with the value of " + root.val + " of the subtree is balanced");
-				System.out.println("The left Subtree depth is " + leftDepth);
-				System.out.println("The right subtree depth is " + rightDepth);
+
+				if (null != parent.leftNode) {
+					queue.add(parent.leftNode);
+				}
+				if (null != parent.rightNode) {
+					queue.add(parent.rightNode);
+				}
 			}
 			
-			return Math.max(leftDepth, rightDepth);
-			
+			list.add(level);
+			if (leftToRight) {
+				leftToRight = false;
+			} else {
+				leftToRight = true;
+			}
+
+		}
+		return list;
+	}
+	
+	public void printZigZag(List<List<Integer>> list){
+		for(List<Integer> l1: list){
+			System.out.print("printing level: ");
+			for(Integer i: l1){
+				System.out.print(i + " ");
+			}
+			System.out.println();
 		}
 		
-	
+	}
 }

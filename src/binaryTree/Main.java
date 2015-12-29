@@ -60,6 +60,10 @@ public class Main {
 		
 		//traversal.maxDepthHelper(root, 0);
 		
-		traversal.isTreeBalanced(root);
+		//traversal.isTreeBalanced(root);
+		
+		//traversal.treeRightSide(root);
+		
+		traversal.printZigZag(traversal.zigZag(root));
 	}
 }

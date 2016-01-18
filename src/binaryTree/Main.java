@@ -64,6 +64,10 @@ public class Main {
 		
 		//traversal.treeRightSide(root);
 		
-		traversal.printZigZag(traversal.zigZag(root));
+		//traversal.printZigZag(traversal.zigZag(root));
+		
+		//System.out.println("The LCA is " + root.val + ", " +level1Righta.leftNode.val + ", " + level2leftb.val + " is " + traversal.LCA(root,level1Righta.leftNode, level2leftb).val);
+	
+		System.out.println("The LCA is " + root.val + ", " +level1Righta.leftNode.val + ", " + level2leftb.val + " is " + traversal.LowestCommonAncestorTest(root,level1Righta.leftNode, level2leftb).val);
 	}
 }

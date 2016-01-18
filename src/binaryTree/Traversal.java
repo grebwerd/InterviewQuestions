@@ -690,7 +690,56 @@ public class Traversal {
 				System.out.print(i + " ");
 			}
 			System.out.println();
+		}	
+	}
+	
+	public TreeNode LCA(TreeNode root, TreeNode node1, TreeNode node2){
+		
+		if( null == root){
+			return null;
 		}
 		
+		if( root == node1 || root == node2 ){
+			return root;
+		}
+		
+		TreeNode leftNode = LCA(root.leftNode, node1, node2);
+		TreeNode rightNode = LCA(root.rightNode, node1, node2);
+		
+		if(null != leftNode && null != rightNode ){
+			return root;
+		}
+		
+		if(null != leftNode){
+			return leftNode;
+		}else{
+			return rightNode;
+		}
+		
+	}
+	
+	public TreeNode LowestCommonAncestorTest(TreeNode root, TreeNode left, TreeNode right){
+		
+		if( null == root){
+			return null;
+		}
+		
+		if(root == left || root == right ){
+			return root;
+		}
+		
+		left = LowestCommonAncestorTest(root.leftNode, left, right);
+		right = LowestCommonAncestorTest(root.rightNode, left, right);
+	
+	    if(null != left && null != right){
+	    	return root;
+	    }
+	    
+	    if( null != left){
+	    	return left;
+	    }
+	    else{
+	    	return right;
+	    }
 	}
 }

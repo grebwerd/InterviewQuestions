@@ -2,21 +2,26 @@ package isLinkedListPalidrome;
 
 public class Main {
 
+	Node firstHalf = null;
+	Node secondHalf = null;
+	boolean isOdd;
+	
 	public static void main(String[] args) {
 		Main m = new Main();
 		Node node1 = new Node(1);
-		Node node2 = new Node(2);
+		Node node2 = new Node(1);
 		Node node3 = new Node(2);
 		Node node4 = new Node(1);
 
 		node1.next = node2;
 		node2.next = node3;
+		//middle.next = node3;
 		node3.next = node4;
 
 		System.out.println("Is the linkedList a palindrome is " + m.isPalindrome(node1));
 
 	}
-
+/*
 	public boolean isPalindrome(Node head) {
 		int[] midPoints = getMidPoints(getListLength(head));
 
@@ -127,6 +132,98 @@ public class Main {
 			System.out.print(temp.val + ", ");
 			temp = temp.next;
 		}
+	}*/
+	
+	
+	public boolean isPalindrome(Node head){
+		if( null == head){
+			return true;
+		}
+		
+		int length = findLength(head);
+		if( 1 == length ){
+			return true;
+		}
+		
+		if( 2 == length){
+			if( head.val == head.next.val){
+				return true;
+			}
+			return false;
+		}
+		
+		int middle = findMiddle(length);
+		secondHalf(head, middle);
+		reverseHalf(head, middle);
+		
+		while(null != secondHalf){
+			
+			if(firstHalf.val != secondHalf.val){
+				return false;
+			}
+			firstHalf = firstHalf.next;
+			secondHalf = secondHalf.next;
+		}
+		
+		
+		return true;
+		
 	}
-
+	
+	private int findLength(Node head){
+		int retval = 0;
+		Node headPtr = head;
+		while(null != headPtr){
+			retval++;
+			headPtr = headPtr.next;
+		}
+		System.out.println("list lenght is " + retval);
+		return retval;
+	}
+	
+	private void secondHalf(Node head, int startPoint){
+		
+		if(isOdd){
+			System.out.println("startPoint is " + startPoint);
+			startPoint += 1;
+		}
+		
+		Node headPtr = head;
+		int temp = 1;
+		while(temp <= startPoint){
+			System.out.println("The value of headPtr is " + headPtr.val);
+			headPtr = headPtr.next;
+			temp++;
+		}
+		System.out.println("The final value of headPtr is " + headPtr.val);
+		secondHalf = headPtr;
+		
+	}
+	
+	private int findMiddle(int length){
+		
+		if(length%2 == 0){
+			isOdd = false;
+			return length/2;
+		}else{
+			isOdd = true;
+			return (length-1)/2;
+		}
+	}
+	
+	private void reverseHalf(Node head, int endPoint){
+		
+		Node headPtr = head;
+		Node prev = null;
+		int temp = 1;
+		while(temp <= endPoint){
+			Node next = headPtr.next;
+			headPtr.next = prev;
+			prev = headPtr;
+			headPtr = next;
+			temp++;
+		}
+		
+		firstHalf = prev;
+	}
 }

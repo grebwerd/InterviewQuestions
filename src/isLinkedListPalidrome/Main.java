@@ -2,16 +2,16 @@ package isLinkedListPalidrome;
 
 public class Main {
 
-	Node firstHalf = null;
-	Node secondHalf = null;
+	ListNode firstHalf = null;
+	ListNode secondHalf = null;
 	boolean isOdd;
 	
 	public static void main(String[] args) {
 		Main m = new Main();
-		Node node1 = new Node(1);
-		Node node2 = new Node(1);
-		Node node3 = new Node(2);
-		Node node4 = new Node(1);
+		ListNode node1 = new ListNode(1);
+		ListNode node2 = new ListNode(1);
+		ListNode node3 = new ListNode(2);
+		ListNode node4 = new ListNode(1);
 
 		node1.next = node2;
 		node2.next = node3;
@@ -135,7 +135,7 @@ public class Main {
 	}*/
 	
 	
-	public boolean isPalindrome(Node head){
+	public boolean isPalindrome(ListNode head){
 		if( null == head){
 			return true;
 		}
@@ -170,9 +170,9 @@ public class Main {
 		
 	}
 	
-	private int findLength(Node head){
+	private int findLength(ListNode head){
 		int retval = 0;
-		Node headPtr = head;
+		ListNode headPtr = head;
 		while(null != headPtr){
 			retval++;
 			headPtr = headPtr.next;
@@ -181,14 +181,14 @@ public class Main {
 		return retval;
 	}
 	
-	private void secondHalf(Node head, int startPoint){
+	private void secondHalf(ListNode head, int startPoint){
 		
 		if(isOdd){
 			System.out.println("startPoint is " + startPoint);
 			startPoint += 1;
 		}
 		
-		Node headPtr = head;
+		ListNode headPtr = head;
 		int temp = 1;
 		while(temp <= startPoint){
 			System.out.println("The value of headPtr is " + headPtr.val);
@@ -211,13 +211,13 @@ public class Main {
 		}
 	}
 	
-	private void reverseHalf(Node head, int endPoint){
+	private void reverseHalf(ListNode head, int endPoint){
 		
-		Node headPtr = head;
-		Node prev = null;
+		ListNode headPtr = head;
+		ListNode prev = null;
 		int temp = 1;
 		while(temp <= endPoint){
-			Node next = headPtr.next;
+			ListNode next = headPtr.next;
 			headPtr.next = prev;
 			prev = headPtr;
 			headPtr = next;

@@ -1,11 +1,11 @@
 package isLinkedListPalidrome;
 
-public class Node {
+public class ListNode {
 
-	public Node next;
+	public ListNode next;
 	public int val;
 	
-	public Node(int val){
+	public ListNode(int val){
 		this.val = val;
 	}
 	

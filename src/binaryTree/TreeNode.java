@@ -2,8 +2,8 @@ package binaryTree;
 
 public class TreeNode {
 	
-	public TreeNode leftNode;
-	public TreeNode rightNode;
+	public TreeNode left;
+	public TreeNode right;
 	public int val;
 	
 	public TreeNode(int val){

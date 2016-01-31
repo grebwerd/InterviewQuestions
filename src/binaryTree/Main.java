@@ -17,16 +17,16 @@ public class Main {
 		TreeNode level3Rightb = new TreeNode(55);
 		
 		//Left Subtree
-		root.leftNode = level1Lefta;
-		level1Lefta.leftNode = level2lefta;
-		level1Lefta.rightNode = level2leftb;
-		level2lefta.leftNode = level3Lefta;
+		root.left = level1Lefta;
+		level1Lefta.left = level2lefta;
+		level1Lefta.right = level2leftb;
+		level2lefta.left = level3Lefta;
 		
 		//Right SubTree
-		root.rightNode = level1Righta;
-		level1Righta.leftNode = level2Righta;
-		level1Righta.rightNode = level2Rightb;
-		level2Righta.rightNode = level3Rightb;
+		root.right = level1Righta;
+		level1Righta.left = level2Righta;
+		level1Righta.right = level2Rightb;
+		level2Righta.right = level3Rightb;
 		
 		
 		Traversal traversal = new Traversal();
@@ -68,6 +68,6 @@ public class Main {
 		
 		//System.out.println("The LCA is " + root.val + ", " +level1Righta.leftNode.val + ", " + level2leftb.val + " is " + traversal.LCA(root,level1Righta.leftNode, level2leftb).val);
 	
-		System.out.println("The LCA is " + root.val + ", " +level1Righta.leftNode.val + ", " + level2leftb.val + " is " + traversal.LowestCommonAncestorTest(root,level1Righta.leftNode, level2leftb).val);
+		System.out.println("The LCA is " + root.val + ", " +level1Righta.left.val + ", " + level2leftb.val + " is " + traversal.LowestCommonAncestorTest(root,level1Righta.left, level2leftb).val);
 	}
 }

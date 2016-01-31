@@ -20,8 +20,8 @@ public class Traversal {
 		}
 
 		System.out.println(root.val);
-		preOrderRecursive(root.leftNode);
-		preOrderRecursive(root.rightNode);
+		preOrderRecursive(root.left);
+		preOrderRecursive(root.right);
 	}
 
 	public void preOrderIterative(TreeNode root) {
@@ -36,12 +36,12 @@ public class Traversal {
 			TreeNode temp = stack.pop();
 			System.out.println(temp.val);
 
-			if (null != temp.rightNode) {
-				stack.add(temp.rightNode);
+			if (null != temp.right) {
+				stack.add(temp.right);
 			}
 
-			if (null != temp.leftNode) {
-				stack.add(temp.leftNode);
+			if (null != temp.left) {
+				stack.add(temp.left);
 			}
 		}
 	}
@@ -52,9 +52,9 @@ public class Traversal {
 			return;
 		}
 
-		inOrderRecursive(root.leftNode);
+		inOrderRecursive(root.left);
 		System.out.println(root.val);
-		inOrderRecursive(root.rightNode);
+		inOrderRecursive(root.right);
 
 	}
 
@@ -72,11 +72,11 @@ public class Traversal {
 
 			if (temp != null) {
 				stack.push(temp);
-				temp = temp.leftNode;
+				temp = temp.left;
 			} else {
 				TreeNode parent = stack.pop();
 				System.out.println(parent.val);
-				temp = parent.rightNode;
+				temp = parent.right;
 			}
 		}
 	}
@@ -86,8 +86,8 @@ public class Traversal {
 			return;
 		}
 
-		postOrderRecursive(root.leftNode);
-		postOrderRecursive(root.rightNode);
+		postOrderRecursive(root.left);
+		postOrderRecursive(root.right);
 
 		System.out.println(root.val);
 	}
@@ -121,14 +121,14 @@ public class Traversal {
 			// go down the tree
 			// if prev is null, meaning you are starting at the root node
 			// or if prev is a parent node of the curr node
-			if (null == prev || prev.leftNode == curr || prev.rightNode == curr) {
+			if (null == prev || prev.left == curr || prev.right == curr) {
 				// remember at the end of each iteration prev will equal curr
 				// node
 				// and curr will equal the top of the stack
-				if (curr.leftNode != null) {
-					stack.push(curr.leftNode);
-				} else if (curr.rightNode != null) {
-					stack.push(curr.rightNode);
+				if (curr.left != null) {
+					stack.push(curr.left);
+				} else if (curr.right != null) {
+					stack.push(curr.right);
 				} else {
 					stack.pop();
 					System.out.println(curr.val + " ");
@@ -137,9 +137,9 @@ public class Traversal {
 				// if curr.leftNode == prev, this means you have gone down the
 				// left sub tree and now
 				// are going to go down the right sub tree.
-			} else if (curr.leftNode == prev) {
-				if (curr.rightNode != null) {
-					stack.push(curr.rightNode);
+			} else if (curr.left == prev) {
+				if (curr.right != null) {
+					stack.push(curr.right);
 				} else {
 					stack.pop();
 					System.out.println(curr.val + " ");
@@ -147,7 +147,7 @@ public class Traversal {
 				// if curr.rightNode == prev, then you have gone down the entire
 				// right subtree
 				// and now curr is the parent node of the subtree
-			} else if (curr.rightNode == prev) {
+			} else if (curr.right == prev) {
 				stack.pop();
 				System.out.println(curr.val + " ");
 			}
@@ -194,15 +194,15 @@ public class Traversal {
 
 			// Next, push the root of the node's right subtree
 			// onto the stack
-			if (temp.rightNode != null) {
-				stack.push(temp.rightNode);
+			if (temp.right != null) {
+				stack.push(temp.right);
 			}
 
 			// Next, push the root of the node's left subtree is pushed
 			// onto the stack
 
-			if (temp.leftNode != null) {
-				stack.push(temp.leftNode);
+			if (temp.left != null) {
+				stack.push(temp.left);
 			}
 		}
 	}
@@ -232,27 +232,27 @@ public class Traversal {
 			if (null == temp) {
 				temp = stack.pop();
 				System.out.println(temp.val + "x");
-				temp = temp.rightNode;
+				temp = temp.right;
 			}
 
 			else if (temp != null) {
-				if (temp.leftNode != null) {
+				if (temp.left != null) {
 					// Save the most recently visited node,
 					// if it has a leftNode by adding it to the
 					// stack. Then set the temp to that of the
 					stack.push(temp);
-					temp = temp.leftNode;
+					temp = temp.left;
 
 					// Traverse Right Sub tree
-				} else if (temp.rightNode != null) {
+				} else if (temp.right != null) {
 					// This will be printed out if the subtree root has only
 					// A right subtree
 					System.out.println(temp.val);
-					temp = temp.rightNode;
+					temp = temp.right;
 				} else {
 					// This will only print out leafs
 					System.out.println(temp.val + "y");
-					temp = temp.rightNode;
+					temp = temp.right;
 				}
 
 			}
@@ -278,11 +278,11 @@ public class Traversal {
 		while (!stack.isEmpty() || null != temp) {
 			if (null != temp) {
 				stack.push(temp);
-				temp = temp.leftNode;
+				temp = temp.left;
 			} else {
 				TreeNode parentNode = stack.pop();
 				System.out.println(parentNode.val);
-				temp = parentNode.rightNode;
+				temp = parentNode.right;
 			}
 		}
 	}
@@ -303,20 +303,20 @@ public class Traversal {
 		while (!stack.isEmpty()) {
 			TreeNode curr = stack.peek();
 
-			if (prev == null || prev.leftNode == curr || prev.rightNode == curr) {
-				if (null != curr.leftNode) {
-					stack.push(curr.leftNode);
-				} else if (null != curr.rightNode) {
-					stack.push(curr.rightNode);
+			if (prev == null || prev.left == curr || prev.right == curr) {
+				if (null != curr.left) {
+					stack.push(curr.left);
+				} else if (null != curr.right) {
+					stack.push(curr.right);
 				} else {
 					// Hey you reached a leaf
 					stack.pop();
 					System.out.println(curr.val);
 
 				}
-			} else if (curr.leftNode == prev) {
-				if (null != curr.rightNode) {
-					stack.push(curr.rightNode);
+			} else if (curr.left == prev) {
+				if (null != curr.right) {
+					stack.push(curr.right);
 				} else {
 					// There is no right subtree for the current node to
 					// traverse
@@ -345,15 +345,15 @@ public class Traversal {
 		path.add(length, root.val);
 
 		length++;
-		if (null == root.leftNode && null == root.rightNode) {
+		if (null == root.left && null == root.right) {
 			System.out.println("\n    ");
 			for (int i : path) {
 				System.out.print(i + " ");
 			}
 		}
 
-		printAllPaths(root.leftNode, path, length);
-		printAllPaths(root.rightNode, path, length);
+		printAllPaths(root.left, path, length);
+		printAllPaths(root.right, path, length);
 
 		path.remove(--length);
 	}
@@ -363,12 +363,12 @@ public class Traversal {
 			return;
 		}
 
-		if (null == root.leftNode && null == root.rightNode) {
+		if (null == root.left && null == root.right) {
 			System.out.print(root.val + " ");
 		}
 
-		printAllLeafs(root.leftNode);
-		printAllLeafs(root.rightNode);
+		printAllLeafs(root.left);
+		printAllLeafs(root.right);
 	}
 
 	public void sumEachPath(TreeNode root, List<Integer> path, int length) {
@@ -379,7 +379,7 @@ public class Traversal {
 		path.add(length, root.val);
 		length++;
 
-		if (null == root.leftNode && null == root.rightNode) {
+		if (null == root.left && null == root.right) {
 			int sum = 0;
 			for (int i : path) {
 				sum += i;
@@ -388,8 +388,8 @@ public class Traversal {
 			System.out.println("The sum of the path is " + sum);
 		}
 
-		sumEachPath(root.leftNode, path, length);
-		sumEachPath(root.rightNode, path, length);
+		sumEachPath(root.left, path, length);
+		sumEachPath(root.right, path, length);
 
 		path.remove(--length);
 	}
@@ -406,17 +406,17 @@ public class Traversal {
 		while (!stack.isEmpty()) {
 
 			TreeNode parentNode = stack.pop();
-			TreeNode tempLeft = parentNode.leftNode;
+			TreeNode tempLeft = parentNode.left;
 
-			parentNode.leftNode = parentNode.rightNode;
-			parentNode.rightNode = tempLeft;
+			parentNode.left = parentNode.right;
+			parentNode.right = tempLeft;
 
-			if (null != parentNode.rightNode) {
-				stack.push(parentNode.rightNode);
+			if (null != parentNode.right) {
+				stack.push(parentNode.right);
 			}
 
-			if (null != parentNode.leftNode) {
-				stack.push(parentNode.leftNode);
+			if (null != parentNode.left) {
+				stack.push(parentNode.left);
 			}
 		}
 
@@ -438,12 +438,12 @@ public class Traversal {
 			TreeNode parentNode = queue.remove();
 			System.out.print(parentNode.val + " ");
 
-			if (null != parentNode.leftNode) {
-				queue.add(parentNode.leftNode);
+			if (null != parentNode.left) {
+				queue.add(parentNode.left);
 			}
 
-			if (null != parentNode.rightNode) {
-				queue.add(parentNode.rightNode);
+			if (null != parentNode.right) {
+				queue.add(parentNode.right);
 			}
 		}
 
@@ -473,8 +473,8 @@ public class Traversal {
 			return;
 		}
 		path.add(Integer.toString(root.val) + "->");
-		serializeHelper(root.leftNode, path);
-		serializeHelper(root.rightNode, path);
+		serializeHelper(root.left, path);
+		serializeHelper(root.right, path);
 	}
 
 	// Decodes your encoded data to tree.
@@ -502,8 +502,8 @@ public class Traversal {
 			return;
 		}
 
-		if (root.val > val && root.leftNode == null) {
-			root.leftNode = new TreeNode(val);
+		if (root.val > val && root.left == null) {
+			root.left = new TreeNode(val);
 			/*
 			 * System.out.println("The node " + root.val +
 			 * " is inserting a node to its " + " left child with the value of "
@@ -513,11 +513,11 @@ public class Traversal {
 		}
 
 		if (root.val > val) {
-			insertTreeNode(root.leftNode, val);
+			insertTreeNode(root.left, val);
 		}
 
-		if (root.val < val && root.rightNode == null) {
-			root.rightNode = new TreeNode(val);
+		if (root.val < val && root.right == null) {
+			root.right = new TreeNode(val);
 			/*
 			 * System.out.println("The node " + root.val +
 			 * " is inserting a node to its " +
@@ -527,7 +527,7 @@ public class Traversal {
 		}
 
 		if (root.val < val) {
-			insertTreeNode(root.rightNode, val);
+			insertTreeNode(root.right, val);
 		}
 	}
 
@@ -540,8 +540,8 @@ public class Traversal {
 		depth += 1;
 		System.out.println(root.val + " has the depth " + depth);
 
-		int leftTreeDepth = maxDepthHelper(root.leftNode, depth);
-		int rightTreeDepth = maxDepthHelper(root.rightNode, depth);
+		int leftTreeDepth = maxDepthHelper(root.left, depth);
+		int rightTreeDepth = maxDepthHelper(root.right, depth);
 
 		System.out.println("leftTreeDepth is " + leftTreeDepth + " for root val " + root.val);
 		System.out.println("rightTreeDepth is " + rightTreeDepth + " for root val " + root.val);
@@ -574,8 +574,8 @@ public class Traversal {
 
 		depth++;
 
-		int leftDepth = treeDepth(root.leftNode, depth);
-		int rightDepth = treeDepth(root.rightNode, depth);
+		int leftDepth = treeDepth(root.left, depth);
+		int rightDepth = treeDepth(root.right, depth);
 
 		if (Math.abs(leftDepth - rightDepth) > 1) {
 			isBalanced = false;
@@ -616,12 +616,12 @@ public class Traversal {
 					System.out.println("The right value is " + temp.val);
 				}
 
-				if (temp.rightNode != null) {
-					queue.add(temp.rightNode);
+				if (temp.right != null) {
+					queue.add(temp.right);
 				}
 
-				if (temp.leftNode != null) {
-					queue.add(temp.leftNode);
+				if (temp.left != null) {
+					queue.add(temp.left);
 				}
 
 			}
@@ -664,11 +664,11 @@ public class Traversal {
 				}
 				
 
-				if (null != parent.leftNode) {
-					queue.add(parent.leftNode);
+				if (null != parent.left) {
+					queue.add(parent.left);
 				}
-				if (null != parent.rightNode) {
-					queue.add(parent.rightNode);
+				if (null != parent.right) {
+					queue.add(parent.right);
 				}
 			}
 			
@@ -703,8 +703,8 @@ public class Traversal {
 			return root;
 		}
 		
-		TreeNode leftNode = LCA(root.leftNode, node1, node2);
-		TreeNode rightNode = LCA(root.rightNode, node1, node2);
+		TreeNode leftNode = LCA(root.left, node1, node2);
+		TreeNode rightNode = LCA(root.right, node1, node2);
 		
 		if(null != leftNode && null != rightNode ){
 			return root;
@@ -728,8 +728,8 @@ public class Traversal {
 			return root;
 		}
 		
-		left = LowestCommonAncestorTest(root.leftNode, left, right);
-		right = LowestCommonAncestorTest(root.rightNode, left, right);
+		left = LowestCommonAncestorTest(root.left, left, right);
+		right = LowestCommonAncestorTest(root.right, left, right);
 	
 	    if(null != left && null != right){
 	    	return root;

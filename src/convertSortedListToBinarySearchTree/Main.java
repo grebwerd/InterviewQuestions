@@ -20,11 +20,51 @@ public class Main {
 		fourth.next = fifth;
 		
 		Main main = new Main();
-		TreeNode retval = main.sortedListToBSTII(head);
+		//TreeNode retval = main.sortedListToBSTII(head);
+		int[] nums = {1, 2, 3, 4, 5};
+		TreeNode retval = main.sortedArrayToBST(nums);
 		
 		main.printInOrder(retval);
 
 	}
+	 public TreeNode sortedArrayToBST(int[] nums) {
+	        
+	        if(nums == null){
+	            return null;
+	        }
+	        
+	        return convertArrayToBST(nums, 0, nums.length);
+	    }
+	    
+	
+	 private TreeNode convertArrayToBST(int[] nums, int start , int end){
+         if(start == end){
+             return null;
+         }
+         
+         System.out.println("The start value is " + start + " and the end value is " + end);
+         int mid = ((start+end)/2);
+         
+         System.out.println("The value of mid is " + mid + " and the value of nums[mid] is " + nums[mid]);
+         
+         TreeNode root = new TreeNode(nums[mid]);
+         System.out.println("The value of the root is " + root.val);
+         root.left = convertArrayToBST(nums, start, mid);
+         if(null != root.left){
+        	 System.out.println("The value of the root.left.val is " + root.left.val);
+         }else{
+        	 System.out.println("The value of the root.left.val is null");
+         }
+         root.right = convertArrayToBST(nums, mid+1, end);
+         if(null != root.right){
+        	 System.out.println("The value of the root.right.val is " + root.right.val);
+         }else{
+        	 System.out.println("The value of the root.right.val is null");
+         }
+         return root;
+ }
+     
+	
 	
 	public TreeNode sortedListToBSTII(ListNode head){
     	if(null == head ){
@@ -35,6 +75,29 @@ public class Main {
     	
 	}
 	
+	
+	/*
+	 * From the leetcode cracker android app
+	 * 1. Base Case: If the start ListNode and the end ListNode are the same node, the return null because, you can not divided the list
+	 * in half again...also, depending on the function call, the start or end listNode should already be in the BST
+	 * 
+	 * 2a. Next create ListNode MidNode which is equal to the beginning of the start of the section of the Sorted LinkedList
+	 * 2b. Next create ListNode endNode which is equal to the beginning of the start of the section of the Sorted LinkedList
+	 * 
+	 * 3a. Find the mid node in the sorted linked list section, range, by using a while loop where 
+	 * the midNode moves for 1 node every iteration and the endNode moves 2 nodes every iteration
+	 * 
+	 * 3b. The whil loop using the check condition, end != endNode && end != endNode.next.
+	 * 3b1. The end != endNode is invalid when the end of th linked list section has been reached so exit the loop.
+	 * 3b2. The end != endNOde.next is invalid if the endNode is the penultimate node in the sorted linked list range. If it went one more iteration, the mid node
+	 * would be off by 1 node...?
+	 * 
+	 * 4. Creat a new TreeNode name root
+	 * 
+	 * 5a. Find and set the root's left node by passing in a sorted link list range that is from 1...midNode
+	 * 5b. Find and set the root's right not by passing in a sorted link list range that is midNode.next, end
+	 * 
+	 * */
 	
 	
 	private TreeNode constructBST(ListNode start, ListNode end){
@@ -53,15 +116,15 @@ public class Main {
 		TreeNode root = new TreeNode(midNode.val);
 		System.out.println("The val of mid is " + midNode.val);
 		
-		root.leftNode = constructBST(start, midNode);
-		if(root.leftNode != null){
-			System.out.println("The root val is " + root.val + " and the  value of root.leftNode is " + root.leftNode.val);
+		root.left = constructBST(start, midNode);
+		if(root.left != null){
+			System.out.println("The root val is " + root.val + " and the  value of root.leftNode is " + root.left.val);
 			}else{
 				System.out.println("The root val is " + root.val + " and the value of root.leftNode is null");
 			}
-		root.rightNode = constructBST(midNode.next, end);
-		if(root.rightNode != null){
-		System.out.println("The root val is " + root.val + " and the value of root.rightNode is " + root.rightNode.val);
+		root.right = constructBST(midNode.next, end);
+		if(root.right != null){
+		System.out.println("The root val is " + root.val + " and the value of root.rightNode is " + root.right.val);
 		}else{
 			System.out.println("The root val is " + root.val + " and the value of root.rightNode is null");
 		}
@@ -134,6 +197,7 @@ public class Main {
 		
 		constructBST(bstHead, listHead, 1, mid-1);
 		constructBST(bstHead, listHead, mid+1, endIndex);
+		
 	}
 	 
 	  
@@ -161,20 +225,20 @@ public class Main {
 		  }
 		  
 		  if(head.val > val){
-			  if(head.leftNode == null){
-				  head.leftNode = new TreeNode(val);
+			  if(head.left == null){
+				  head.left = new TreeNode(val);
 				  return;
 			  }else{
-				  insert(head.leftNode, val);
+				  insert(head.left, val);
 			  }
 		  }
 		  
 		  if(head.val < val){
-			  if( head.rightNode == null){
-				  head.rightNode = new TreeNode(val);
+			  if( head.right == null){
+				  head.right = new TreeNode(val);
 				  return;
 			  }else{
-				  insert(head.rightNode, val);
+				  insert(head.right, val);
 			  }
 		  }
 		  
@@ -187,11 +251,11 @@ public class Main {
 		  if(null == treeHead){
 			  return;
 		  }
-		  printInOrder(treeHead.leftNode);
+		  printInOrder(treeHead.left);
 		  
 		  System.out.println("The value of the node is " + treeHead.val );
 		  
-		  printInOrder(treeHead.rightNode);
+		  printInOrder(treeHead.right);
 	  }
 
 }

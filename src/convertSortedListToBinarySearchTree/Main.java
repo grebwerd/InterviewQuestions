@@ -20,13 +20,60 @@ public class Main {
 		fourth.next = fifth;
 		
 		Main main = new Main();
-		TreeNode retval = main.sortedListToBST(head);
+		TreeNode retval = main.sortedListToBSTII(head);
 		
 		main.printInOrder(retval);
 
 	}
 	
-	/*1. If the LinkedList is null return
+	public TreeNode sortedListToBSTII(ListNode head){
+    	if(null == head ){
+    		return null;
+    	}
+    	
+    	return constructBST(head, null);
+    	
+	}
+	
+	
+	
+	private TreeNode constructBST(ListNode start, ListNode end){
+		if( start == end ){
+			return null;
+		}
+		
+		ListNode midNode = start;
+		ListNode endNode = start;
+		while( end != endNode && end !=  endNode.next){
+			midNode = midNode.next;
+			endNode = endNode.next.next;
+		}
+		
+		
+		TreeNode root = new TreeNode(midNode.val);
+		System.out.println("The val of mid is " + midNode.val);
+		
+		root.leftNode = constructBST(start, midNode);
+		if(root.leftNode != null){
+			System.out.println("The root val is " + root.val + " and the  value of root.leftNode is " + root.leftNode.val);
+			}else{
+				System.out.println("The root val is " + root.val + " and the value of root.leftNode is null");
+			}
+		root.rightNode = constructBST(midNode.next, end);
+		if(root.rightNode != null){
+		System.out.println("The root val is " + root.val + " and the value of root.rightNode is " + root.rightNode.val);
+		}else{
+			System.out.println("The root val is " + root.val + " and the value of root.rightNode is null");
+		}
+		return root;
+		
+	}
+	
+	
+	
+	
+	/* DMG design...didn't work
+	1. If the LinkedList is null return
     2. Find the length of the LinkedList
     3. Find the Mid value of the LinkedList, (n/2) if the list is even else (n/2) + 1
     4. Find the mid Node of the linkedList

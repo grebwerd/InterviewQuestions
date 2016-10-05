@@ -4,23 +4,23 @@ public class Main {
 
 	public static void main(String[] args) {
 	
-		Main m = new Main();
-		Node node1 = new Node(1);
-		Node node2 = new Node(2);
-		Node node3 = new Node(3);
-		Node node4 = new Node(4);
+		Main main = new Main();
+		final Node node1 = new Node(1);
+		final Node node2 = new Node(2);
+		final Node node3 = new Node(3);
+		final Node node4 = new Node(4);
 		
 		node1.next=node2;
 		node2.next=node3;
 		node3.next=node4;
 		
-		//m.print(m.reverseLinkedList(node1));
+		main.print(main.reverseLinkedList(node1));
 		
-		m.print(m.reverse2(node1));
+		//m.print(m.reverse2(node1));
 		
 	}
 
-	public Node reverseLinkedList(Node head){
+	public Node reverseLinkedList(final Node head){
 		if(null == head){
 			return head;
 		}
@@ -48,24 +48,42 @@ public class Main {
 	}
 	
 	
-	public Node reverse2(Node head){
+	public Node reverse2(final Node head){
+		
+		//If the head node is null return
 		if(null == head){
 			return head;
 		}
-		
+
+		//if the head node next pointer is null, return
 		if(null == head.next){
 			return head;
 		}
 		
+		//initialize previous node to null
 		Node prevNode = null;
+		
+		//initialize curNode to the head node of the linked list
 		Node curNode = head;
 		
+		
+		//keep iterating while the current node isn't null
 		while(null != curNode){
-			Node nextNode = curNode.next;
-		    curNode.next = prevNode;
-		    prevNode = curNode;
+			
+			//1. next node is equal to the curNode -> next value
+			final Node nextNode = curNode.next;
+		    
+			//2. set curNode -> next node to the previous null
+			curNode.next = prevNode;
+		    
+			//3. previous node is now point to the current node
+			prevNode = curNode;
+			
+			//4. curNode is now pointing to the next node
 			curNode = nextNode;
 		}
+		
+		//return the curNode
 		return prevNode;
 	}
 	
